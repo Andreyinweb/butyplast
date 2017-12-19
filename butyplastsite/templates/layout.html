@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <title>{% block title %}{% endblock %}</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link  rel = "shortcut icon"  href = " {{  url_for ( 'static' ,  filename = 'favicon.ico' )  }} ">
+  <link rel="stylesheet" href="../static/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+
+  <link rel="stylesheet" href="../static/css/style.css">
+
+  <script src="../static/bootstrap-3.3.7-dist/js/jquery.min.js"></script>
+  <script src="../static/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+  {% block head %}{% endblock %}
+
+
+</head>
+<body>
+  <div class="vse">
+
+    <header class="container-fluid qwer">
+      <div class="col-xs-0 col-sm-2 col-md-2 col-lg-2 left_side_shadow">
+        <img  class="header_side_shadow" src="../static/images/side_shadow.png"> <!--height="290vw" width="100%" -->
+      </div>
+      {% block header %}{% endblock %}
+      <div class="col-xs-0 col-sm-1 col-md-1 col-lg-1 right_side_shadow">
+        <img class="header_side_shadow" width="100%" src="../static/images/side_shadow.png">
+      </div>
+    </header>
+
+    {% if menu %}
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="{{ url_for('index') }}">Главная</a></li>
+                <li><a href="{{ url_for('about') }}">О нас</a></li>
+                <li><a href="{{ url_for('details') }}">Описание</a></li>
+                <li><a href="{{ url_for('buy') }}">Товары</a></li>
+                <li><a href="{{ url_for('installation') }}">Установка</a></li>
+                <li><a href="{{ url_for('contacts') }}">Контакты</a></li>
+            </ul>
+            </div>
+        </div>
+    </nav>
+    {% endif %}
+
+      <main class="container-fluid" >
+        {% block main %}{% endblock %}
+      </main>
+
+      <footer class="container-fluid">
+        <div class="col-xs-0 col-sm-2 col-md-2 col-lg-2 left_side_shadow">
+          <img  class="footer_left_side_shadow" src="../static/images/side_shadow_small.png">
+          <img  class="floor_left_side_shadow" src="../static/images/floor_concrete.jpg">
+        </div>
+        <a href="{{ url_for('index') }}" >
+          <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9 footer_shadows_car">
+            <img class="shadows_car"  src="../static/images/shadows_car_flor.png" alt="Переход">
+          </div>
+        </a>
+        <div class="col-xs-0 col-sm-1 col-md-1 col-lg-1 right_side_shadow">
+            <img  class="footer_right_side_shadow"  src="../static/images/side_shadow_small.png">
+            <img  class="floor_left_side_shadow" src="../static/images/floor_concrete.jpg">
+        </div>
+      </footer>
+
+  </div>
+</body>
+</html>
+
+

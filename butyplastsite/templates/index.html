@@ -1,0 +1,77 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Главная
+{% endblock %}
+
+{% block header %}
+    <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
+     <img class="banner" src="../static/images/banner.jpg" alt="Банер">
+    </div>
+{% endblock %}
+
+
+
+
+{% block main %}
+<div class="container-fluid">
+    <div class="col-xs-0 col-sm-2 col-md-2 col-lg-2 left_side_shadow">
+        <img class="main_side_shadow" src="../static/images/side_shadow_small.png">
+    </div>
+    {% if message %}
+    <div class="container col-xs-12 col-sm-9 col-md-9 col-lg-9 contentindex ">
+        {{message }}
+    </div>
+    {% endif %}
+    <div class="container col-xs-12 col-sm-9 col-md-9 col-lg-9 contentindex ">
+        <img class="index_image" src="../static/images/buy.jpg" alt="Товары" align="left"><!--buy-->
+        <h1>Купить материалы для шумоизоляции авто и инструменты для установки</h1>
+        <p> Я знаю какие материалы нужны для шумоизоляции, и знаю как их устанавливать.
+                Хочу просто купить обесшумку и получть удовольствие от комфортного вождения. </p>
+        <a href="{{ url_for('buy') }}" >
+            <img class="buttonimage"  src="../static/images/button_buy_now.jpg" alt="Купить" align="right">
+        </a>
+    </div>
+
+    <div class="col-xs-0 col-sm-1 col-md-1 col-lg-1 right_side_shadow">
+        <img class="main_side_shadow" src="../static/images/side_shadow_small.png">
+    </div>
+</div>
+    <div class=" col-xs-0 col-sm-2 col-md-2 col-lg-2 left_side_shadow">
+        <img class="main_side_shadow" src="../static/images/side_shadow.png">
+    </div>
+
+    <div class="container col-xs-12 col-sm-9 col-md-9 col-lg-9 contentindex ">
+        <img class="index_image" src="../static/images/kak_pravilno_kleit_avto_shumoizolyatsiyu.jpg" alt="Как клеять, консультация" align="left">
+        <h1>Подобрать материалы. Смотреть рекомендации по установке обесшумки</h1>
+        <p> Хочу узнать как правильно клеить авто шумоизоляцию. Желаю получить
+            консультацию и подобрать оптимальную шумоизоляцию на мой автомобиль
+            исходя из особенностей модели </p>
+        <a href="{{ url_for('details') }}" >
+            <img class="buttonimage"  src="../static/images/button_details.jpg" alt="Купить" align="right">
+        </a>
+    </div>
+
+    <div class="col-xs-0 col-sm-1 col-md-1 col-lg-1 right_side_shadow">
+        <img class="main_side_shadow" src="../static/images/side_shadow.png">
+    </div>
+    <div class="col-xs-0 col-sm-2 col-md-2 col-lg-2 left_side_shadow">
+        <img class="main_side_shadow" src="../static/images/side_shadow.png">
+    </div>
+
+    <div class="container col-xs-12 col-sm-9 col-md-9 col-lg-9 contentindex ">
+        <img class="index_image" src="../static/images/718698685_w200_h200_4.jpg" alt="Установка" align="left">
+        <h1>Обесшумьте мой автомобиль! Мне некогда самому это делать.</h1>
+        <p></p>
+        <p> Хочу заказать шумоизоляцию автомобиля. Сделайте так,
+            что бы было тихо и я наслаждался процессом вождения без шума.
+            Ну и что б аудио система работала </p>
+        <a href="{{ url_for('installation') }}" >
+            <img class="buttonimage"  src="../static/images/button_learn_detail.jpg" alt="Купить" align="right">
+        </a>
+    </div>
+    <div class="col-xs-0 col-sm-1 col-md-1 col-lg-1 right_side_shadow">
+        <img class="main_side_shadow" src="../static/images/side_shadow.png">
+    </div>
+{% endblock %}
+

@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Установка
+{% endblock %}
+
+{% block header %}
+    <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
+        <img class="banner" src="../static/images/banner.jpg" alt="Банер">
+    </div>
+
+{% endblock %}
+
+{% block navbar %}
+{% endblock %}
+
+{% block main %}
+{% if product_db != None %}
+{% for row in product_db %}
+    <div class="col-xs-0 col-sm-2 col-md-2 col-lg-2 left_side_shadow">
+        <img class="buy_main_side_shadow" src="../static/images/side_shadow.png">
+    </div>
+    <div class="container col-xs-12 col-sm-9 col-md-9 col-lg-9 contentindex" >
+                <img class="index_image" src="{{ url_for('static', filename='uploads/'+row.image) }}" alt="Товары" align="left"><!--buy-->
+                <h1>{{row.heading}}</h1>
+                <p> {{row.text}}</p>
+                <p> Цена: {{row.price}} грн.</p>
+                <a href={{row.link}} >
+                    <img class="buttonimage"  src="../static/images/button_learn_detail.jpg" alt="Купить" align="right">
+                </a>
+    </div>
+
+    <div class="col-xs-0 col-sm-1 col-md-1 col-lg-1 right_side_shadow">
+        <img class="buy_main_side_shadow" src="../static/images/side_shadow.png">
+    </div>
+    {% endfor %}
+    {% endif %}
+{% endblock %}
+
+

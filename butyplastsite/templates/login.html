@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Вход администратор
+{% endblock %}
+
+{% block head %}
+
+{% endblock %}
+
+
+
+
+{% block header %}
+    <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9" >
+        <h1 class="centr"> Вход</h1>
+
+    </div>
+    
+{% endblock %}
+
+
+
+{% block main %}
+<div class="col-xs-0 col-sm-2 col-md-2 col-lg-2 left_side_shadow">
+    <img class="buy_main_side_shadow" src="../static/images/side_shadow.png">
+</div>
+<div class="col-xs-12 col-sm-9 col-md-9 col-lg-9 contentlogin" >
+
+    <h4 class="centr">{{ message }}</h4>
+    <p></p>
+    <form class="centr" action="{{ url_for('login') }}" method="post">
+        <fieldset>
+            <div class="centr form-group">
+                <input autocomplete="off" autofocus class="form-control" name="username" placeholder="Логин" type="text"/>
+            </div>
+            <div class="centr form-group">
+                <input class="form-control" name="password" placeholder="Пароль" type="password"/>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-info" type="submit">Войти</button>
+            </div>
+        </fieldset>
+    </form>
+</div>
+<div class="col-xs-0 col-sm-1 col-md-1 col-lg-1 right_side_shadow">
+    <img class="buy_main_side_shadow" src="../static/images/side_shadow.png">
+</div>
+{% endblock %}
+

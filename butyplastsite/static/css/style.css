@@ -1,0 +1,191 @@
+.vse{
+  background-image:url("../images/background.png");
+  -moz-background-size: 100%; /* Firefox 3.6+ */
+  -webkit-background-size: 100%; /* Safari 3.1+ и Chrome 4.0+ */
+  -o-background-size: 100%; /* Opera 9.6+ */
+  background-size: 100%; /*Современные браузеры */
+}
+
+.container-fluid{
+  margin:0;
+  padding: 0;
+}
+
+.left_side_shadow{
+  margin:0;
+  padding: 0;
+  display: block;
+}
+.header_side_shadow{
+  width: 100%;
+  height: 18vw;
+}
+.centr {
+  text-align: center;
+}
+
+.wind{
+  width: 100%;
+  height: 15vw;
+}
+.banner {
+  width: 100%;
+  height: 15vw;
+  margin-top: 1vw;
+  margin-bottom: 2vw;
+}
+.right_side_shadow
+{
+  margin:0;
+  padding: 0;
+  display: block;
+  /* height: 20vw; */
+}
+/* On small screens, set height to 'auto' for sidenav and grid */
+@media screen and (max-width: 767px) {
+  .sidenav {
+    height: auto;
+    padding: 15px;
+  }
+  .row.content {height:auto;} 
+  .left_side_shadow{ /* должно исчезать */
+    display: none ;
+  }
+  .right_side_shadow{/* должно исчезать */
+  display: none ;
+  }
+}
+.footer_left_side_shadow{
+  height: 34.7vw;
+  width: 100%;
+  /* height: 100vh;
+   width: 100%; */
+}
+.floor_left_side_shadow{
+  height: 8.8vw;
+  width: 100%;
+}
+.footer_right_side_shadow{
+  height: 34.7vw;
+  width: 100%;
+}
+
+.footer_shadows_car{
+  margin:0;
+  padding: 0;
+}
+.shadows_car{
+  margin:0;
+  padding: 0;
+  height: 43.5vw;
+  width: 100%;
+  /* height: 100vh; */
+  /* bottom: -18.5vh;
+  position: relative;
+  z-index: 10; */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Remove the navbar's default margin-bottom and rounded borders */ 
+.navbar {
+  
+  margin-bottom: 0;
+  border-radius: 0;
+}
+
+/* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+.row.content {height: 300px}
+
+/* Set gray background color and 100% height */
+.sidenav {
+  padding-top: 20px;
+  background-color: rgba(255, 255, 255, 0.7);
+  height: 100%;
+}
+
+
+
+
+/*      INDEX.html  */
+.main_side_shadow{
+  height: 23rem;
+  width: 100%;
+}
+
+.contentindex {
+  margin: 2rem 0px 1rem 0px;
+  border: 4px inset rgb(138, 136, 136);
+  border-radius: 25px;
+  background-color: rgba(255, 255, 255, 0.7);
+  /* height: 20rem; */
+}
+
+.contentindex p {
+  margin: 0; /* 50px 30px auto 30px; */
+  
+}
+.index_image{
+  margin: 10px 5px 15px 10px;
+  border-radius: 25px;
+  height: 142px;
+  width: 142px;
+}
+.contentindex h1 {
+  font-family:  Arial, Times,'Times New Roman',  Georgia, serif;
+  margin: 0; /*30px 5px 20px 5px;*/
+  font-size: 20px ;
+  font-weight: bold;
+
+}
+.contentindex .buttonimage{
+  margin: 0; /*5px 5px 15px 5px; */
+  border-radius: 0;
+  height: 30px;
+}
+/* Buy.html*/
+.buy_main_side_shadow{
+  height: 23rem;
+  width: 100%;
+}
+/* Login */
+.contentlogin{
+  margin: 1rem 0px 1rem 0px;
+  padding: 0.5rem;
+  border: 4px inset rgb(138, 136, 136);
+  border-radius: 25px;
+  background-color: rgba(247, 244, 81, 0.7);
+}
+/* Admin */
+.contentadmin {
+  margin: 2rem 0px 1rem 0px;
+  padding: 1rem;
+  border: 4px inset rgb(138, 136, 136);
+  border-radius: 25px;
+  background-color: rgba(255, 255, 255, 0.7);
+}
+
+/* About */
+.about_side_shadow{
+  height: 100rem;
+  width: 100%;
+}
+
+/* Contacts*/
+.contacts_side_shadow{
+  height: 67rem;
+  width: 100%;
+}
+

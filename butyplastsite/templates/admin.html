@@ -1,0 +1,118 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Администрирование
+{% endblock %}
+
+{% block head %}
+
+{% endblock %}
+
+
+
+
+{% block header %}
+    <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9" >
+        <h1 class="centr"> Администрирование</h1>
+
+        <form class="centr" action="{{ url_for('logout') }}" method="post">
+            <fieldset>
+                <div class="form-group">
+                    <button class="btn btn-warning" type="submit">ВЫХОД</button>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+{% endblock %}
+
+
+
+{% block main %}
+<div class="container-fluid contentadmin" >
+    <form class="centr form-horizontal" action="{{ url_for('admin') }}" method="post">
+            {% if site_page != None and site_page != [] %}
+            <select class=" centr form-control" name="page_now">
+                <option ><font color="red">{{ page_now }}</font></option>
+            {% for x in site_page %}
+                <option>{{ x }}</option>
+            {% endfor %}
+            </select>
+            {% endif %}
+        <button type="submit" name="change_page" class="btn btn-primary" value="site_page">Выбрать</button>
+    </form>
+</div>
+{% if product_db != None %}
+{% for row in product_db %}
+    <div class="container-fluid contentadmin" >
+        <div class="col-xs-4 col-sm-2 col-md-2 col-lg-2" >
+            <img class="index_image" src="{{ url_for('static', filename='uploads/'+row.image) }}" alt="Товары" align="left">
+        </div>
+    <div class="centr col-xs-8 col-sm-9 col-md-9 col-lg-9" >
+        <form class="centr form-horizontal" action="{{ url_for('admin') }}" method="post"  enctype="multipart/form-data">
+            <div class="form-group">
+                id: {{row.id}}
+            </div>
+            <div class="centr form-group">
+                <input type="file" class="form-control" name="file"  value=Upload placeholder="Выберите файл">
+            </div>
+            <div class="form-group">
+                <p>Заголовок</p>
+                <textarea class="form-control" rows="1" name="heading">{{row.heading}}</textarea>
+            </div>
+            <div class="form-group">
+                <p>Описание</p>
+                <textarea class="form-control" rows="5" name="textarea">{{row.text}}</textarea>
+            </div>
+            <div class="form-group">
+                <p>Цена</p>
+                <textarea class="form-control" rows="1" name="price">{{row.price}}</textarea>
+            </div>
+            <div class="form-group">
+                <p>Ссылка</p>
+                <textarea class="form-control" rows="1" name="link">{{row.link}}</textarea>
+            </div>
+            <button type="submit" name="id" class="btn btn-success" value={{row.id}}>Сохранить</button>
+            <button type="submit" name="del" class="btn btn-danger" value={{row.id}}>Удалить</button>
+        </form>
+    </div>
+</div>
+{% endfor %}
+{% endif %}
+<!-- NEW product -->
+<div class="container-fluid contentadmin" >
+    <div class="col-xs-4 col-sm-2 col-md-2 col-lg-2" >
+    </div>
+    <div class="col-xs-8 col-sm-9 col-md-9 col-lg-9" >
+        <form class="form-horizontal" action="{{ url_for('new_product') }}" method="post"  enctype="multipart/form-data">
+                <div class="form-group">
+                    {% if new_id != None %}
+                    <select class="form-control" name="select">
+                        <option></option>
+                    {% for x in new_id %}
+                        <option>{{ x }}</option>
+                    {% endfor %}
+                    </select>
+                    {% endif %}
+
+                </div>
+                <div class="form-group">
+                    <input type="file" class="form-control" name="file"  value=Upload placeholder="Выберите файл">
+                </div>
+                <div class="form-group">
+                    <textarea class="form-control" rows="1" name="heading" placeholder="Заголовок"></textarea>
+                </div>
+                <div class="form-group">
+                    <textarea class="form-control" rows="5" name="textarea" placeholder="Описание"></textarea>
+                </div>
+                <div class="form-group">
+                    <textarea class="form-control" rows="1" name="price" placeholder="Цена"></textarea>
+                </div>
+                <div class="form-group">
+                    <textarea class="form-control" rows="1" name="link" placeholder="Ссылка"></textarea>
+                </div>
+                <button type="submit" name="id" class="btn btn-success" value="new">Добавить</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
