@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Товары
+{% endblock %}
+
+{% block header %}
+    <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
+        <img class="banner" src="../static/images/banner.jpg" alt="Банер">
+    </div>
+
+{% endblock %}
+
+
+{% block main %}
+{% if product_db != None %}
+{% for row in product_db %}
+  
+{% endfor %}
+{% endif %}
+{% endblock %}
+
+
