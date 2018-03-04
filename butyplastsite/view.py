@@ -11,21 +11,6 @@ def index():
     return render_template("index.html", menu = menu) # , message = message Paste if you want to display a variable. Вставить если нужно вывести на экран переменную.
 
 
-# @app.route('/details')  services
-# def details():
-#     menu = True
-#     product_db = Product.query.filter_by(page = "details").all()
-#     return render_template("details.html",product_db = product_db, menu = menu)
-
-# @app.route('/installation')
-# def installation():
-#     menu = True
-#     product_db = Product.query.filter_by(page = "installation").all()
-#     return render_template("installation.html",product_db = product_db, menu = menu)
-
-
-
-
 @app.route('/about')
 def about():
     menu = True
