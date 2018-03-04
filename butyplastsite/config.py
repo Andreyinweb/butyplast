@@ -13,7 +13,7 @@ if os.path.exists('../config.env'):
 
 
 class Configuretion(object):
-    # В файл config.env записывать без пробелов
+    # В файл config.env записывать без пробелов и кавычек
     DEBUG = os.environ.get('DEBUG')
     SQLALCHEMY_DATABASE_URI = os.environ.get('SQLALCHEMY_DATABASE_URI')
     SQLALCHEMY_TRACK_MODIFICATIONS = os.environ.get('SQLALCHEMY_TRACK_MODIFICATIONS')
