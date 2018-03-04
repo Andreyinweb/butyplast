@@ -1,9 +1,22 @@
-class Configuretion(object):
-    
-    DEBUG = True # del_string
+import os
+import sys
 
-    SQLALCHEMY_DATABASE_URI = 'mysql+mysqlconnector://root:1987@localhost/butyplast'
-    SQLALCHEMY_TRACK_MODIFICATIONS = False
-    SECRET_KEY = 'hard to guess string'
-# del_string
-    UPLOAD_FOLDER = '/home/stariy/andrey/butyplast/site/butyplastsite/static/uploads'
+
+basedir = os.path.abspath(os.path.dirname(__file__))
+
+if os.path.exists('../config.env'):
+    print('Importing environment from .env file')
+    for line in open('../config.env'):
+        var = line.strip().split('=')
+        if len(var) == 2:
+            os.environ[var[0]] = var[1].replace("\"", "")
+
+
+class Configuretion(object):
+    # В файл config.env записывать без пробелов
+    DEBUG = os.environ.get('DEBUG')
+    SQLALCHEMY_DATABASE_URI = os.environ.get('SQLALCHEMY_DATABASE_URI')
+    SQLALCHEMY_TRACK_MODIFICATIONS = os.environ.get('SQLALCHEMY_TRACK_MODIFICATIONS')
+    SECRET_KEY = os.environ.get('SECRET_KEY')
+    # del_string
+    UPLOAD_FOLDER = os.environ.get('UPLOAD_FOLDER')
