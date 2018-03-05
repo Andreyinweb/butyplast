@@ -27,6 +27,24 @@ class Articles(db.Model):
     def __repr__(self):
         return '<Article %r, id: %r>' % (self.title, self.id)
 
+class Goods(db.Model):
+    __tablename__ = 'goods'
+    id = db.Column(db.Integer, primary_key=True)
+    slug = db.Column(db.String(150), unique=True)
+    created = db.Column(db.DateTime, default=datetime.now())
+    title = db.Column(db.String(150))
+    body = db.Column(db.Text)
+    specification = db.Column(db.Text)
+    price = db.Column(db.Float)
+    image = db.Column(db.String(150))
+
+    def __init__(self, *args, **kwargs):
+        super(Goods, self).__init__(*args, **kwargs)
+        self.slug = slugify(self.title) + '_' + slugify_date(str(datetime.now()))
+
+    def __repr__(self):
+        return '<Goods %r, id: %r>' % (self.title, self.id)
+
 
 
 

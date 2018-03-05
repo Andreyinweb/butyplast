@@ -3,7 +3,7 @@
 import sys
 sys.path.append('../butyplastsite')
 
-from models import  db, Articles
+from models import  db, Articles, Goods
 from app import app
 from generator import Generator
 from random import randint, choice
@@ -19,10 +19,10 @@ db.drop_all() # Удали. Это удаляет все таблицы.
 db.create_all()
 print("Создана база данных: " + app.config['SQLALCHEMY_DATABASE_URI'] ) 
 
-# Записывает случайные статьи в таблицу Articles.)
+# Записывает случайные статьи в таблицу Articles.
 cont = 0
 # Случайное количество статей
-for i in range(0,randint(1,5)):
+for i in range(0,randint(2,7)):
     # Записывает случайные статьиS
     article = choice(worddict.articles)
     new_article = Articles(title= article['title'] , body=article['body'], specification=article['specification'])
@@ -33,6 +33,23 @@ for i in range(0,randint(1,5)):
 try:
     db.session.commit()
     print("Создано " + str(cont) + " СТАТЕЙ")   
+except :
+    print("Или уже создано или ошибка")
+
+# Записывает случайные статьи в таблицу Goods.
+cont = 0
+# Случайное количество статей
+for i in range(0,randint(3,9)):
+    # Записывает случайные статьиS
+    good = choice(worddict.goods)
+    new_good = Goods(title= good['title'] , body=good['body'], specification=good['specification'], price=good['price'])
+    # Добавляет в сессию базы данных
+    db.session.add(new_good)
+    cont +=1
+# Сохраняет  сессию базы данных.
+try:
+    db.session.commit()
+    print("Записано " + str(cont) + " Товаров")   
 except :
     print("Или уже создано или ошибка")
 
