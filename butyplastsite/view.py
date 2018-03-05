@@ -32,23 +32,41 @@ def search():
     #     page = int(page)
     # else:
     #     page = 1
-    
+
+    sort = {'по дате: старые': Goods.created.desc(),'от дешевых к дорогим': Goods.price.asc(),'от дорогих к дешевым': Goods.price.desc(), 'по дате: новые': Goods.created.asc() }
+    sorts =[s for s in sort]
+
+    sorting = request.args.get('sorting')
+    if not sorting:
+        sorting = 'по дате: старые'
     
     q = request.args.get('q')
-
+    
     if q:
-        search_db1 = Goods.query.filter(Goods.title.contains(q) | Goods.body.contains(q) | Goods.specification.contains(q)).all()
+        search_db1 = Goods.query.order_by(sort[sorting]).filter(Goods.title.contains(q) | Goods.body.contains(q) | Goods.specification.contains(q)).all()        
         search_db2 = Articles.query.filter(Articles.title.contains(q) | Articles.body.contains(q) | Articles.specification.contains(q)).all()        
         search_db = {'goods.product':search_db1, 'articles.more_info': search_db2}
-        message = "По запросу: " + q + "     ---------  Hайдено :  " + str(len(search_db1) + len(search_db2)) + "  результатов."
-        if  not search_db:
-            search_db = Goods.query.all()
-            message = "По запросу: " + q + "   ничего не найдено!"    
+        message = "По запросу: ____ " + q + " __________ Hайдено :  " + str(len(search_db1) + len(search_db2)) + "  результатов."
+        if  not search_db1:
+            # Делим на слова и удаляем окончания
+            words = q.split()
+            for q1 in words:
+                if len(q1) > 5 : q1 = q1[0:-3]
+                search_db1 = Goods.query.order_by(sort[sorting]).filter(Goods.title.contains(q1) | Goods.body.contains(q1) | Goods.specification.contains(q1)).all()
+                search_db2 = Articles.query.filter(Articles.title.contains(q1) | Articles.body.contains(q1) | Articles.specification.contains(q1)).all()        
+                search_db = {'goods.product':search_db1, 'articles.more_info': search_db2}
+                message = "По запросу: ____ " + q + " __________ Hайдено :  " + str(len(search_db1) + len(search_db2)) + "  результатов."
+                
+            if  not search_db1:
+                search_db = {'goods.product': Goods.query.order_by(sort[sorting])}
+                message = "По запросу: ____ " + q + " __________ ничего не найдено!"    
 
     else:
-        search_db = Goods.query.order_by(Goods.created.desc())
+        search_db = {'goods.product': Goods.query.order_by(sort[sorting])}
         message = ""
+        
+    # pages = search_db1.paginate(page=page, per_page=3) + search_db2.paginate(page=page, per_page=3) 
+    pages = None
+    print(dir(search_db1))
 
-    # pages = posts.paginate(page=page, per_page=7)
-
-    return render_template("search.html", menu=menu, message=message, search_db=search_db)
+    return render_template("search.html", menu=menu, message=message, search_db=search_db, sorts=sorts, pages=pages)

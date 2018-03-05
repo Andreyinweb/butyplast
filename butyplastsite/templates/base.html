@@ -50,7 +50,8 @@
               </ul>
             <form class="navbar-form navbar-left" action="{{ url_for('search') }}" method="GET">
                 <div class="form-group">
-                <input type="text" class="form-control" placeholder="Поиск товаров" name="q" value="{{ request.args.get('q','') }}">
+                <input type="text" class="form-control" placeholder="Поиск товаров" name="q" 
+                         value=""> <!--{% if not request.args.get('q','') %}{{ request.args.get('q','') }}{% else %}{{''}}{% endif %} -->
                 </div>
                 <button type="submit" class="btn btn-default">Поиск</button>
             </form>
