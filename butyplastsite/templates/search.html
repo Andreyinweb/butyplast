@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block title %}
-    Товары
+    Поиск
 {% endblock %}
 
 {% block header %}
@@ -13,24 +13,38 @@
 
 
 {% block main %}
-{% if goods_db %}
-{% for row in goods_db %}
+{% if message %}
+    <div class="col-xs-0 col-sm-2 col-md-2 col-lg-2 left_side_shadow">
+        <img  src="../static/images/side_shadow.png" height="60" width="100%">
+    </div>
+    <div class="container col-xs-12 col-sm-9 col-md-9 col-lg-9 " >
+        <h3 style="background: #D9FFAD; color: green; padding: 2px;">{{ message }}</h3>
+    </div>
+    <div class="col-xs-0 col-sm-1 col-md-1 col-lg-1 right_side_shadow">
+        <img  src="../static/images/side_shadow.png" height="60" width="100%">
+    </div>
+{% endif %}
+
+{% if search_db %}
+{% for rows in search_db %}
+{%  for row in search_db[rows] %}
      <div class="col-xs-0 col-sm-2 col-md-2 col-lg-2 left_side_shadow">
         <img class="buy_main_side_shadow" src="../static/images/side_shadow.png">
     </div>
     <div class="container col-xs-12 col-sm-9 col-md-9 col-lg-9 contentindex" >
-        <a href='{{ url_for('goods.product', slug = row.slug) }}' >
+        <a href='{% if row.price %} {{ url_for(rows, slug = row.slug) }}  {% endif %}' >
             <img class="index_image" src="{{ url_for('static', filename='uploads/not.png') }}" alt="Подробнее" align="left">
         </a>
         <h1>{{row.title}}</h1>
-        <p> {{row.body}}</p>                                
-        <p> Цена: {{row.price}} грн.</p>
-
+        <p> {{row.body}}</p>  
+        {% if row.price %}                           
+            <p> Цена: {{row.price}} грн.</p>
+        
         <a href='{{ url_for('contacts') }}' >
             <img class="buttonimage"  src="../static/images/button_buy_now.jpg" alt="Купить" align="right" >
         </a>
-
-        <a href='{{ url_for('goods.product', slug = row.slug) }}' >
+        {% endif %}
+        <a href='{{ url_for(rows, slug = row.slug) }}' >
             <img class="buttonimage"  src="../static/images/button_details.jpg" alt="Подробнее" align="right"  >
         </a>
         
@@ -39,6 +53,7 @@
     <div class="col-xs-0 col-sm-1 col-md-1 col-lg-1 right_side_shadow">
         <img class="buy_main_side_shadow" src="../static/images/side_shadow.png">
     </div>
+{% endfor %}
 {% endfor %}
 {% endif %}
 {% endblock %}

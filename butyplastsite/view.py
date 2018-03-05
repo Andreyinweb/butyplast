@@ -1,6 +1,6 @@
 from app import app
-from flask import render_template
-
+from flask import render_template, request #, redirect, url_for
+from models import Articles, Goods
 
 
 @app.route('/')
@@ -22,3 +22,33 @@ def contacts():
     menu = True
     product_db = None
     return render_template("contacts.html",product_db = product_db, menu = menu)
+
+@app.route('/search')
+def search():
+    menu = True
+    # page = request.args.get('page')
+
+    # if page and page.isdigit():
+    #     page = int(page)
+    # else:
+    #     page = 1
+    
+    
+    q = request.args.get('q')
+
+    if q:
+        search_db1 = Goods.query.filter(Goods.title.contains(q) | Goods.body.contains(q) | Goods.specification.contains(q)).all()
+        search_db2 = Articles.query.filter(Articles.title.contains(q) | Articles.body.contains(q) | Articles.specification.contains(q)).all()        
+        search_db = {'goods.product':search_db1, 'articles.more_info': search_db2}
+        message = "По запросу: " + q + "     ---------  Hайдено :  " + str(len(search_db1) + len(search_db2)) + "  результатов."
+        if  not search_db:
+            search_db = Goods.query.all()
+            message = "По запросу: " + q + "   ничего не найдено!"    
+
+    else:
+        search_db = Goods.query.order_by(Goods.created.desc())
+        message = ""
+
+    # pages = posts.paginate(page=page, per_page=7)
+
+    return render_template("search.html", menu=menu, message=message, search_db=search_db)

@@ -10,4 +10,12 @@ goods = Blueprint('goods', __name__, template_folder='templates')
 def index():
     menu = True
     goods_db = Goods.query.all()
-    return render_template('goods/index.html', menu = menu, goods_db=goods_db)
+    return render_template('goods/index.html', menu=menu, goods_db=goods_db)
+
+@goods.route('/<slug>')
+def product(slug):
+    menu = True
+    goods_db  = Goods.query.filter_by(slug=slug).first()
+    
+    return render_template('goods/product.html', menu=menu, goods_db=goods_db)
+    

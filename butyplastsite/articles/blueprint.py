@@ -11,3 +11,11 @@ def index():
     menu = True
     article_db = Articles.query.all()
     return render_template('articles/index.html', menu=menu, article_db=article_db)
+
+    more_info
+@articles.route('/<slug>')
+def more_info(slug):
+    menu = True
+    articles_db  = Articles.query.filter_by(slug=slug).first()
+    
+    return render_template('articles/more_info.html', menu=menu, articles_db=articles_db)

@@ -19,11 +19,18 @@
         <img class="buy_main_side_shadow" src="../static/images/side_shadow.png">
     </div>
     <div class="container col-xs-12 col-sm-9 col-md-9 col-lg-9 contentindex" >
-        <img class="index_image" src="{{ url_for('static', filename='uploads/not.png') }}" alt="Товары" align="left">
+        <a href='{{ url_for('articles.more_info', slug = row.slug) }}' >
+            <img class="index_image" src="{{ url_for('static', filename='uploads/not.png') }}" alt="Товары" align="left">
+        </a>
         <h1>{{row.title}}</h1>
-        <p> {{row.body}}</p>
-        <a href='#' >
-            <img class="buttonimage"  src="../static/images/button_details.jpg" alt="Купить" align="right">
+        <p> {{row.body}}</p> 
+
+        <a href='{{ url_for('goods.index') }}' >
+            <img class="buttonimage"  src="../static/images/button_buy_now.jpg" alt="Купить" align="right" >
+        </a>
+
+        <a href='{{ url_for('articles.more_info', slug = row.slug) }}' >
+            <img class="buttonimage"  src="../static/images/button_details.jpg" alt="Подробнее" align="right"  >
         </a>
     </div>
 
