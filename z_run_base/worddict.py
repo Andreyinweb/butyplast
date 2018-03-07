@@ -1,3 +1,24 @@
+main_table = [{'id':1,'section':'index', 'link':'/','title_page':'Главная','name_link':'Главная',
+'data_page': '<p> Вставленный в <br>базу текст с html <b> Главная.</b> </p>'},
+              {'id':2, 'section':'about', 'link':'/about','title_page':'О нас','name_link':'О нас',
+'data_page': '<p> Вставленный в базу текст с html <br><b> О нас.</b> </p>'},
+              {'id':3, 'section':'articles.more_info', 'link':'/articles','title_page':'Описание','name_link':'Описание',
+'data_page': '<p> <b> Описание.</b> <br>Вставленный в базу текст с html </p>'},
+              {'id':4, 'section':'products.product', 'link':'/products','title_page':'Товары','name_link':'Товары',
+'data_page': '<p> <b> Продукт.</b> <br>Вставленный в базу текст с html </p>'},
+              {'id':5, 'section':'services.index', 'link':'/products','title_page':'Установка','name_link':'Поставить',
+'data_page': '<p> <b> Монтаж.</b> Вставленный в базу текст<br> с html </p>'}
+]
+
+
+
+
+
+
+
+
+
+
 nickname = [ "3D Waffle", "Hightower", "Papa Smurf", "57 Pixels", "Hog Butcher", "Pepper Legs", "101", "Houston",
          "Pinball Wizard", "Accidental Genius", "Hyper", "Pluto", "Alpha", "Jester", "Pogue", "Airport Hobo",
          "Jigsaw", "Prometheus", "Bearded Angler", "Joker's Grin", "Psycho Thinker", "Beetle King", "Judge", "Pusher",
@@ -104,7 +125,7 @@ articles = [{'title': "Установка шумоизоляции",
 
 ##############################################################
 
-goods = [{'title': "Вибропласт Vizol М1",
+products = [{'title': "Вибропласт Vizol М1",
         'body' : ''' Вибропласт для виброизоляции автомобиля Недорогая автомобильная виброизоляция визол М1, 
 широкого спектра применения. Основная особенность - тонкая фольга в 50 микрон и специальный облегченный герметик, 
 и толщина 1,3мм делают Визол М1 отличной легкой виброизоляцией для деталей авто с низкой вибро нагрузкойнаших установщиков 
@@ -170,22 +191,7 @@ goods = [{'title': "Вибропласт Vizol М1",
 то Вы не почувствуете жара. Летом крыша обработанная каучуком не сильно нагревается, что позволяет усесться в салон без 
 длительного проветривания. К тому же у каучука широкий диапазон шумоподавления.''',
         'price' : 34.8
-        }]
-       
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        }]   
 
 
 

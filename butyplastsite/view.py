@@ -1,7 +1,7 @@
 from app import app
-from flask import render_template, request #, redirect, url_for
-from models import Articles, Goods
-
+from flask import render_template, request, url_for #, redirect
+from models import Articles, Products, Maintable
+from programs.pagination import Pagination
 
 @app.route('/')
 def index():
@@ -26,14 +26,19 @@ def contacts():
 @app.route('/search')
 def search():
     menu = True
-    # page = request.args.get('page')
+    per_page = 3 # Количество результатов на странице 
+    
+    page = request.args.get('page')
 
-    # if page and page.isdigit():
-    #     page = int(page)
-    # else:
-    #     page = 1
+    if page and page.isdigit():
+        page = int(page)
+    else:
+        page = 1
 
-    sort = {'по дате: старые': Goods.created.desc(),'от дешевых к дорогим': Goods.price.asc(),'от дорогих к дешевым': Goods.price.desc(), 'по дате: новые': Goods.created.asc() }
+    sort = {'по дате: старые': [Products.created.desc(), Articles.created.desc()],
+            'от дешевых к дорогим': [Products.price.asc(), Articles.created.asc()],
+            'от дорогих к дешевым': [Products.price.desc(), Articles.created.asc()],
+            'по дате: новые': [Products.created.asc(), Articles.created.asc()] }
     sorts =[s for s in sort]
 
     sorting = request.args.get('sorting')
@@ -41,32 +46,42 @@ def search():
         sorting = 'по дате: старые'
     
     q = request.args.get('q')
-    
+
     if q:
-        search_db1 = Goods.query.order_by(sort[sorting]).filter(Goods.title.contains(q) | Goods.body.contains(q) | Goods.specification.contains(q)).all()        
-        search_db2 = Articles.query.filter(Articles.title.contains(q) | Articles.body.contains(q) | Articles.specification.contains(q)).all()        
-        search_db = {'goods.product':search_db1, 'articles.more_info': search_db2}
-        message = "По запросу: ____ " + q + " __________ Hайдено :  " + str(len(search_db1) + len(search_db2)) + "  результатов."
-        if  not search_db1:
+        
+        search_db1 = Products.query.order_by(sort[sorting][0]).filter( Products.title.contains(q) |
+                                    Products.body.contains(q) | Products.specification.contains(q)).all()
+
+        search_db2 = Articles.query.order_by(sort[sorting][1]).filter(Articles.title.contains(q) |
+                                    Articles.body.contains(q) | Articles.specification.contains(q)).all()
+        
+        search_db = search_db1 + search_db2
+        if  search_db != 0:                          
+            message = "По запросу: ____ " + q + " __________ Hайдено :  " + str(len(search_db)) + "  совпадений."
+        else :
             # Делим на слова и удаляем окончания
             words = q.split()
             for q1 in words:
                 if len(q1) > 5 : q1 = q1[0:-3]
-                search_db1 = Goods.query.order_by(sort[sorting]).filter(Goods.title.contains(q1) | Goods.body.contains(q1) | Goods.specification.contains(q1)).all()
+                search_db1 = Products.query.order_by(sort[sorting]).filter(Products.title.contains(q1) | Products.body.contains(q1) | Products.specification.contains(q1)).all()
                 search_db2 = Articles.query.filter(Articles.title.contains(q1) | Articles.body.contains(q1) | Articles.specification.contains(q1)).all()        
-                search_db = {'goods.product':search_db1, 'articles.more_info': search_db2}
-                message = "По запросу: ____ " + q + " __________ Hайдено :  " + str(len(search_db1) + len(search_db2)) + "  результатов."
+                search_db = {'products.product':search_db1, 'articles.more_info': search_db2}
+                message = "По запросу: ____ " + q + " __________ Hайдено :  " + str(len(search_db1) + len(search_db2)) + "  совпадений."
                 
             if  not search_db1:
-                search_db = {'goods.product': Goods.query.order_by(sort[sorting])}
+                search_db = {'products.product': Products.query.order_by(sort[sorting])}
                 message = "По запросу: ____ " + q + " __________ ничего не найдено!"    
 
     else:
-        search_db = {'goods.product': Goods.query.order_by(sort[sorting])}
+        search_db = Products.query.order_by(sort[sorting])
         message = ""
-        
-    # pages = search_db1.paginate(page=page, per_page=3) + search_db2.paginate(page=page, per_page=3) 
-    pages = None
-    print(dir(search_db1))
+    total_count = len(search_db)
+    pagination = Pagination(page, per_page, total_count)   
+    list_out = pagination.list_paginat(search_db)
+    pages = pagination
 
-    return render_template("search.html", menu=menu, message=message, search_db=search_db, sorts=sorts, pages=pages)
+    # pages = None
+    # print(dir(search_db1))
+
+    return render_template("search.html", menu=menu, message=message, list_out=list_out, sorting=sorting ,  sorts=sorts, pages=pages)
+

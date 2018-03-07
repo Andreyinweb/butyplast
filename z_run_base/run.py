@@ -3,57 +3,74 @@
 import sys
 sys.path.append('../butyplastsite')
 
-from models import  db, Articles, Goods
+from models import  db, Articles, Products, Maintable
 from app import app
 from generator import Generator
 from random import randint, choice
 import worddict
 
-gener = Generator()
 
-# Удали
-db.drop_all() # Удали. Это удаляет все таблицы.
-# Удали
+def creation_of_database():
+    gener = Generator()
 
-# Создает файл базы данных и все таблицы
-db.create_all()
-print("Создана база данных: " + app.config['SQLALCHEMY_DATABASE_URI'] ) 
+    # Удали
+    db.drop_all() # Удали. Это удаляет все таблицы.
+    # Удали
 
-# Записывает случайные статьи в таблицу Articles.
-cont = 0
-# Случайное количество статей
-for i in range(0,randint(2,7)):
-    # Записывает случайные статьиS
-    article = choice(worddict.articles)
-    new_article = Articles(title= article['title'] , body=article['body'], specification=article['specification'])
-    # Добавляет в сессию базы данных
-    db.session.add(new_article)
-    cont +=1
-# Сохраняет  сессию базы данных.
-try:
-    db.session.commit()
-    print("Создано " + str(cont) + " СТАТЕЙ")   
-except :
-    print("Или уже создано или ошибка")
+    # Создает файл базы данных и все таблицы
+    db.create_all()
+    print("Создана база данных: " + app.config['SQLALCHEMY_DATABASE_URI'] ) 
 
-# Записывает случайные статьи в таблицу Goods.
-cont = 0
-# Случайное количество статей
-for i in range(0,randint(3,9)):
-    # Записывает случайные статьиS
-    good = choice(worddict.goods)
-    new_good = Goods(title= good['title'] , body=good['body'], specification=good['specification'], price=good['price'])
-    # Добавляет в сессию базы данных
-    db.session.add(new_good)
-    cont +=1
-# Сохраняет  сессию базы данных.
-try:
-    db.session.commit()
-    print("Записано " + str(cont) + " Товаров")   
-except :
-    print("Или уже создано или ошибка")
+    # Записывает таблицу Maintable.
+    for row in worddict.main_table:
+        
+        new_row = Maintable(section = row['section'], link = row['link'],
+                            title_page = row['title_page'], name_link = row['name_link'], 
+                            data_page = row['data_page'])
+        # Добавляет в сессию базы данных
+        db.session.add(new_row)
 
 
+
+    # Записывает случайные статьи в таблицу Articles.
+    cont = 0
+    # Случайное количество статей
+    for i in range(0,randint(2,15)):
+        # Записывает случайные статьиS
+        article = choice(worddict.articles)
+        new_article = Articles(title= article['title'] , body=article['body'], specification=article['specification'])
+        new_article.id_main = 3
+        # Добавляет в сессию базы данных
+        db.session.add(new_article)
+        cont +=1
+    # Сохраняет  сессию базы данных.
+    try:
+        db.session.commit()
+        print("Записана база Maintable") 
+        print("Создано " + str(cont) + " СТАТЕЙ")   
+    except :
+        print("Или уже создано или ошибка")
+
+    # Записывает случайные статьи в таблицу Products.
+    cont = 0
+    # Случайное количество статей
+    for i in range(0,randint(10,30)):
+        # Записывает случайные статьиS
+        product = choice(worddict.products)
+        new_product = Products(title= product['title'] , body=product['body'], specification=product['specification'], price=randint(10,300))
+        new_product.id_main = 4
+        # Добавляет в сессию базы данных
+        db.session.add(new_product)
+        cont +=1
+    # Сохраняет  сессию базы данных.
+    try:
+        db.session.commit()
+        print("Записано " + str(cont) + " Товаров")   
+    except :
+        print("Или уже создано или ошибка")
+
+if __name__== '__main__':
+    creation_of_database()
 
 
 

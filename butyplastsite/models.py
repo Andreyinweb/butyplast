@@ -19,6 +19,8 @@ class Articles(db.Model):
     body = db.Column(db.Text)
     specification = db.Column(db.Text)
     image = db.Column(db.String(150))
+    # Связь с тадлицей Maintable
+    id_main = db.Column(db.Integer, db.ForeignKey('maintable.id'))
 
     def __init__(self, *args, **kwargs):
         super(Articles, self).__init__(*args, **kwargs)
@@ -27,8 +29,8 @@ class Articles(db.Model):
     def __repr__(self):
         return '<Article %r, id: %r>' % (self.title, self.id)
 
-class Goods(db.Model):
-    __tablename__ = 'goods'
+class Products(db.Model):
+    __tablename__ = 'products'
     id = db.Column(db.Integer, primary_key=True)
     slug = db.Column(db.String(150), unique=True)
     created = db.Column(db.DateTime, default=datetime.now())
@@ -37,24 +39,51 @@ class Goods(db.Model):
     specification = db.Column(db.Text)
     price = db.Column(db.Float)
     image = db.Column(db.String(150))
+    # Связь с тадлицей Maintable
+    id_main = db.Column(db.Integer, db.ForeignKey('maintable.id'))
 
     def __init__(self, *args, **kwargs):
-        super(Goods, self).__init__(*args, **kwargs)
+        super(Products, self).__init__(*args, **kwargs)
         self.slug = slugify(self.title) + '_' + slugify_date(str(datetime.now()))
 
     def __repr__(self):
-        return '<Goods %r, id: %r>' % (self.title, self.id)
+        return '<Products %r, id: %r>' % (self.title, self.id)
 
+class Tag(db.Model):
+    """
+    Таблица 
+    """
+    __tablename__ = 'tags'
+    id = db.Column(db.Integer, primary_key=True)
+    slug = db.Column(db.String(100))
+    name = db.Column(db.String(100))
 
+    def __init__(self, *args, **kwargs):
+        super(Tag, self).__init__(*args, **kwargs)
+        self.slug = slugify(self.name)
 
+    def __repr__(self):
+        return '<Tag %r, id: %r>' % (self.name, self.id)
 
-# class Product(db.Model):
-#     id = db.Column(db.Integer, primary_key = True)
-#     page = db.Column(db.String(20))
-#     image = db.Column(db.String(100))
-#     heading = db.Column(db.String(100))
-#     text = db.Column(db.String(500))
-#     price = db.Column(db.Float)
-#     link = db.Column(db.String(100))
+class Maintable(db.Model):
+    __tablename__ = 'maintable'
+    id = db.Column(db.Integer, primary_key=True)
+    slug = db.Column(db.String(150), unique=True)
+    created = db.Column(db.DateTime, default=datetime.now())
+    section = db.Column(db.String(100))
+    link = db.Column(db.String(100))
+    title_page = db.Column(db.String(100))
+    name_link = db.Column(db.String(100))
+    data_page = db.Column(db.Text)
+
+    id_articles = db.relationship('Articles', backref='maintable', lazy='dynamic')
+    id_products = db.relationship('Products', backref='maintable', lazy='dynamic')
+
+    def __init__(self, *args, **kwargs):
+        super(Maintable, self).__init__(*args, **kwargs)
+        self.slug = slugify(self.name_link)
+
+    def __repr__(self):
+        return '<Maintable section:%r, link: %r, title_page: %r, name_link: %r>' % (self.section, self.link, self.title_page,  self.name_link)
 
 

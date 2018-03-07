@@ -22,7 +22,7 @@
     </div>
     <div class="container col-xs-2 col-sm-2 col-md-2 col-lg-2 " >
         <!-- Single button -->
-        {% if search_db %}
+        {% if pages %}
         {% if sorts %} 
         
         <div class="btn-group">
@@ -47,14 +47,14 @@
 
 {% endif %}
 
-{% if search_db %}
-{% for rows in search_db %}
-{%  for row in search_db[rows] %}
+{% if list_out  %}
+
+{%  for row in list_out %}
      <div class="col-xs-0 col-sm-2 col-md-2 col-lg-2 left_side_shadow">
         <img class="buy_main_side_shadow" src="../static/images/side_shadow.png">
     </div>
     <div class="container col-xs-12 col-sm-9 col-md-9 col-lg-9 contentindex" >
-        <a href='{% if row.price %} {{ url_for(rows, slug = row.slug) }}  {% endif %}' >
+        <a href='{% if row.price %} {{ url_for(row.maintable.section, slug = row.slug) }}  {% endif %}' >
             <img class="index_image" src="{{ url_for('static', filename='uploads/not.png') }}" alt="Подробнее" align="left">
         </a>
         удали {{row.id}}
@@ -68,54 +68,66 @@
             <img class="buttonimage"  src="../static/images/button_buy_now.jpg" alt="Купить" align="right" >
         </a>
         {% endif %}
-        <a href='{{ url_for(rows, slug = row.slug) }}' >
+        <a href='{{ url_for(row.maintable.section, slug = row.slug) }}' >
             <img class="buttonimage"  src="../static/images/button_details.jpg" alt="Подробнее" align="right"  >
         </a>
         
     </div>
-    {% if pages %} 
-    <nav >
-            <ul class="pagination">
+
     
-                <li {% if not pages.has_prev %} class="disabled" {% endif %} >
-    
-                    <a href="./?page={{ pages.prev_num }}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
-                </li>
-    
-                {% for page in pages.iter_pages() %}
-                <li {% if page == pages.page %} class="active" {% endif %}>
-                    
-                    
-    
-                        {% if page %}
-                        <a href="./?page={{ page }}">{{ page }}
-                        {% else %}
-                        <a href="#">...
-                        {% endif %}
-                        
-                        
-                        <span class="sr-only">(current)</span></a>
-                                    
-                </li>
-                {% endfor %}
-    
-                <li {% if not pages.has_next %} class="disabled" {% endif %} >
-                                        
-                    <a href="{% if pages.has_next %}
-                    ./?page={{ pages.next_num }}
-                    {% endif %} " aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
-                    
-                </li>
-    
-            </ul>
-        </nav>
-        {% endif %}
     <div class="col-xs-0 col-sm-1 col-md-1 col-lg-1 right_side_shadow">
         
         <img class="buy_main_side_shadow" src="../static/images/side_shadow.png">
     </div>
 {% endfor %}
-{% endfor %}
+{% endif %}
+
+{% if pages %} 
+<div class="col-xs-0 col-sm-2 col-md-2 col-lg-2 left_side_shadow">
+    <img class="buy_main_side_shadow" src="../static/images/side_shadow.png">
+</div>
+
+<div class="container col-xs-12 col-sm-9 col-md-9 col-lg-9 " >
+    <nav >
+        <ul class="pagination">
+
+            <li {% if not pages.has_prev %} class="disabled" {% endif %} >
+
+                <a href="{{url_for('search')}}?page={{ pages.page - 1 }}&sorting={{sorting }}&q={{ request.args.get('q','') }}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+            </li>
+
+            {% for page in pages.iter_pages() %}
+            <li {% if page == pages.page %} class="active" {% endif %}>
+                
+                
+
+                    {% if page %}
+                    <a href="{{url_for('search')}}?page={{ page }}&sorting={{ sorting }}&q={{ request.args.get('q','') }}">{{ page }}
+                    {% else %}
+                    <a href="#">...
+                    {% endif %}
+                    
+                    
+                    <span class="sr-only">(current)</span></a>
+                                
+            </li>
+            {% endfor %}
+
+            <li {% if not pages.has_next %} class="disabled" {% endif %} >
+                                    
+                <a href="{% if pages.has_next %}
+                {{url_for('search')}}?page={{ pages.page + 1 }}&sorting={{sorting}}&q={{ request.args.get('q','') }}
+                {% endif %} " aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+                
+            </li>
+
+        </ul>
+    </nav>
+</div>
+<div class="col-xs-0 col-sm-1 col-md-1 col-lg-1 right_side_shadow">
+    
+    <img class="buy_main_side_shadow" src="../static/images/side_shadow.png">
+</div>
 {% endif %}
 {% endblock %}
 
