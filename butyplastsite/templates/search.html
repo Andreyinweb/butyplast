@@ -47,9 +47,8 @@
 
 {% endif %}
 
-{% if list_out  %}
-
-{%  for row in list_out %}
+{% if pages.rows  %}
+{%  for row in pages.rows %}
      <div class="col-xs-0 col-sm-2 col-md-2 col-lg-2 left_side_shadow">
         <img class="buy_main_side_shadow" src="../static/images/side_shadow.png">
     </div>
@@ -57,8 +56,6 @@
         <a href='{% if row.price %} {{ url_for(row.maintable.section, slug = row.slug) }}  {% endif %}' >
             <img class="index_image" src="{{ url_for('static', filename='uploads/not.png') }}" alt="Подробнее" align="left">
         </a>
-        удали {{row.id}}
-        <p>удали {{row.created}}></p>
         <h1>{{row.title}}</h1>
         <p> {{row.body}}</p>  
         {% if row.price %}                           
@@ -84,12 +81,12 @@
 
 {% if pages %} 
 <div class="col-xs-0 col-sm-2 col-md-2 col-lg-2 left_side_shadow">
-    <img class="buy_main_side_shadow" src="../static/images/side_shadow.png">
+    <img height="80" width="100%" src="../static/images/side_shadow.png">
 </div>
 
-<div class="container col-xs-12 col-sm-9 col-md-9 col-lg-9 " >
+<div class="container col-xs-12 col-sm-9 col-md-9 col-lg-9 text-center " >
     <nav >
-        <ul class="pagination">
+        <ul class="pagination pagination-md">
 
             <li {% if not pages.has_prev %} class="disabled" {% endif %} >
 
@@ -125,8 +122,7 @@
     </nav>
 </div>
 <div class="col-xs-0 col-sm-1 col-md-1 col-lg-1 right_side_shadow">
-    
-    <img class="buy_main_side_shadow" src="../static/images/side_shadow.png">
+    <img height="80" width="100%" src="../static/images/side_shadow.png">
 </div>
 {% endif %}
 {% endblock %}

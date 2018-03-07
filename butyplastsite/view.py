@@ -27,9 +27,7 @@ def contacts():
 def search():
     menu = True
     per_page = 3 # Количество результатов на странице 
-    
     page = request.args.get('page')
-
     if page and page.isdigit():
         page = int(page)
     else:
@@ -56,32 +54,31 @@ def search():
                                     Articles.body.contains(q) | Articles.specification.contains(q)).all()
         
         search_db = search_db1 + search_db2
-        if  search_db != 0:                          
+        if  search_db :                          
             message = "По запросу: ____ " + q + " __________ Hайдено :  " + str(len(search_db)) + "  совпадений."
         else :
             # Делим на слова и удаляем окончания
             words = q.split()
             for q1 in words:
                 if len(q1) > 5 : q1 = q1[0:-3]
-                search_db1 = Products.query.order_by(sort[sorting]).filter(Products.title.contains(q1) | Products.body.contains(q1) | Products.specification.contains(q1)).all()
-                search_db2 = Articles.query.filter(Articles.title.contains(q1) | Articles.body.contains(q1) | Articles.specification.contains(q1)).all()        
-                search_db = {'products.product':search_db1, 'articles.more_info': search_db2}
-                message = "По запросу: ____ " + q + " __________ Hайдено :  " + str(len(search_db1) + len(search_db2)) + "  совпадений."
+                search_db1 = Products.query.order_by(sort[sorting][0]).filter( Products.title.contains(q1) |
+                                            Products.body.contains(q1) | Products.specification.contains(q1)).all()
+
+                search_db2 = Articles.query.order_by(sort[sorting][1]).filter(Articles.title.contains(q1) |
+                                            Articles.body.contains(q1) | Articles.specification.contains(q1)).all()
+                search_db = search_db1 + search_db2
+                if  search_db :
+                    message = "По запросу: ____ " + q + " __________ Hайдено :  " + str(len(search_db)) + "  совпадений."
                 
-            if  not search_db1:
-                search_db = {'products.product': Products.query.order_by(sort[sorting])}
+            if  not search_db:
+                search_db = Products.query.order_by(sort[sorting][0]).all() + Articles.query.order_by(sort[sorting][1]).all()
                 message = "По запросу: ____ " + q + " __________ ничего не найдено!"    
 
     else:
-        search_db = Products.query.order_by(sort[sorting])
+        search_db = Products.query.order_by(sort[sorting]).all()
         message = ""
     total_count = len(search_db)
-    pagination = Pagination(page, per_page, total_count)   
-    list_out = pagination.list_paginat(search_db)
-    pages = pagination
+    pages = Pagination(page, per_page, total_count, search_db)  
 
-    # pages = None
-    # print(dir(search_db1))
-
-    return render_template("search.html", menu=menu, message=message, list_out=list_out, sorting=sorting ,  sorts=sorts, pages=pages)
+    return render_template("search.html", menu=menu, message=message,  sorting=sorting ,  sorts=sorts, pages=pages)
 

@@ -2,10 +2,11 @@ from math import ceil
 
 class Pagination(object):
 
-    def __init__(self, page, per_page, total_count):
+    def __init__(self, page, per_page, total_count,list_in):
         self.page = page
         self.per_page = per_page
         self.total_count = total_count
+        self.list_in = list_in
 
     @property
     def pages(self):
@@ -31,9 +32,10 @@ class Pagination(object):
                     yield None
                 yield num
                 last = num
-    def list_paginat(self,list_in):
+    @property
+    def rows(self):
         list_start = self.per_page * (self.page-1) 
         end_list = list_start + self.per_page
-        list_out = [i for i in list_in[list_start:end_list]]
+        list_out = [i for i in self.list_in[list_start:end_list]]
         return list_out
 
