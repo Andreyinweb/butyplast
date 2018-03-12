@@ -87,3 +87,4 @@ class Maintable(db.Model):
         return '<Maintable section:%r, link: %r, title_page: %r, name_link: %r>' % (self.section, self.link, self.title_page,  self.name_link)
 
 
+
