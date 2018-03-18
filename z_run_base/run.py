@@ -3,8 +3,9 @@
 import sys
 sys.path.append('../butyplastsite')
 
-from models import  db, Articles, Products, Maintable
+
 from app import app
+from models import  db, Articles, Products, Maintable
 from generator import Generator
 from random import randint, choice
 import worddict
@@ -14,7 +15,7 @@ def creation_of_database():
     gener = Generator()
 
     # Удали
-    db.drop_all() # Удали. Это удаляет все таблицы.
+    # db.drop_all() # Удали. Это удаляет все таблицы.
     # Удали
 
     # Создает файл базы данных и все таблицы
