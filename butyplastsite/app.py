@@ -3,7 +3,7 @@ from config import Configuretion
 from flask_sqlalchemy import SQLAlchemy
 from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
-
+from flask_security import SQLAlchemyUserDatastore, Security
 
 
 # from flask_migrate import Migrate, MigrateCommand
@@ -26,15 +26,15 @@ db = SQLAlchemy(app)
 
 
 admin = Admin(app) # , endpoint='index'
-from models import Articles, Products, Maintable , Tag  
+from models import Articles, Products, Maintable , Tag, Role, User 
 
+
+admin.add_view(ModelView(User, db.session))
+admin.add_view(ModelView(Role, db.session))
 admin.add_view(ModelView(Articles, db.session, endpoint='Article'))
 admin.add_view(ModelView(Products, db.session, endpoint='Product'))
 admin.add_view(ModelView(Tag, db.session))
 admin.add_view(ModelView(Maintable, db.session))
-# admin.add_link('index')
 
-
-
-# admin.add_view(ModelView(User, db.session))
-# admin.add_view(ModelView(Role, db.session))
+user_datastore = SQLAlchemyUserDatastore(db, User, Role)
+security = Security(app, user_datastore)
