@@ -8,6 +8,10 @@
 * mysql-connector
 * Flask-WTF for forms
 * Flask-Mail for sending emails
+* Flask-Login
+* Flask-Security
+* Flask-Admin
+* Flask-BabelEx
 
 ## Setting up
 
