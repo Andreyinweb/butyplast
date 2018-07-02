@@ -1,7 +1,8 @@
-from app import app
-from flask import render_template, request, url_for #, redirect
+from app import app, db
+from flask import render_template, request, url_for, redirect
 from models import Articles, Products, Maintable
 from programs.pagination import Pagination
+
 
 @app.route('/')
 def index():
@@ -82,3 +83,10 @@ def search():
 
     return render_template("search.html", menu=menu, message=message,  sorting=sorting ,  sorts=sorts, pages=pages)
 
+# @app.route('/add', methods=['GET', 'POST'])
+# def add():
+#     page_add = request.args.get('page_add')
+#     if not page_add:
+#         page_add = 'Описание'
+#     if request.method == "POST":
+#         if request.form.get("change_page"):

@@ -20,3 +20,9 @@ class Configuretion(object):
     SECRET_KEY = os.environ.get('SECRET_KEY')
     # del_string
     UPLOAD_FOLDER = os.environ.get('UPLOAD_FOLDER')
+
+    ##### flask_security
+
+    SECURITY_PASSWORD_SALT = 'SALT'
+    SECURITY_PASSWORD_HASH = 'sha512_crypt'
+

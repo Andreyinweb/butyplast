@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Добавить
+{% endblock %}
+
+{% block header %}
+<div class="col-xs-12 col-sm-9 col-md-9 col-lg-9" >
+    <h1 class="centr">Добавить</h1>
+    {% if message %}
+    <div class="container col-xs-12 col-sm-9 col-md-9 col-lg-9 contentindex ">
+            {% if link %}<a href="{{link}}">{{link}}</a>{% endif %}{{message }}
+    </div>
+    {% endif %}
+
+    <!-- <form class="centr" action="№" method="post">
+        <fieldset>
+            <div class="form-group">
+                <button class="btn btn-warning" type="submit">ВЫХОД</button>
+            </div>
+        </fieldset>
+    </form> -->
+    <div class="container-fluid contentadmin" >
+        <form class="centr form-horizontal" action="#" method="post">
+                {% if site_page != None and site_page != [] %}
+                <select class=" centr form-control" name="page_now">
+                    <option ><font color="red">{{ page_now }}</font></option>
+                {% for x in site_page %}
+                    <option>{{ x }}</option>
+                {% endfor %}
+                </select>
+                {% endif %}
+            <button type="submit" name="change_page" class="btn btn-primary" value="site_page">Выбрать</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+
+
+
+{% block main %}
+<div class="container-fluid">
+    <div class="col-xs-0 col-sm-2 col-md-2 col-lg-2 left_side_shadow">
+    </div>
+    <div class="container col-xs-12 col-sm-9 col-md-9 col-lg-9 contentindex ">
+
+        <form action="/add" method="POST" >
+            {% for field in form %}
+                    <div class="form-group">
+                        {% if field.label() != '<label for="csrf_token">CSRF Token</label>'%}
+                            <p> {{ field.label() }}</p>
+                        {% endif %}
+
+                        {{ field }}
+                    </div>
+            {% endfor %}
+        </form>
+
+    </div>
+</div>
+{% endblock %}
+
