@@ -3,6 +3,8 @@ from config import Configuretion
 from flask_sqlalchemy import SQLAlchemy
 from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
+
+
 from flask_security import SQLAlchemyUserDatastore, Security
 
 
@@ -36,5 +38,7 @@ admin.add_view(ModelView(Products, db.session, endpoint='Product'))
 admin.add_view(ModelView(Tag, db.session))
 admin.add_view(ModelView(Maintable, db.session))
 
+
+#### flask_security
 user_datastore = SQLAlchemyUserDatastore(db, User, Role)
 security = Security(app, user_datastore)

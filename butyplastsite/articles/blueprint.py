@@ -6,6 +6,8 @@ from models import Articles
 
 from .forms import AddArticlesForm
 
+from flask_security import login_required 
+
 # Название которое используется в ссылках, текущее имя, папка с шаблонами
 articles = Blueprint('articles', __name__, template_folder='templates')
 
@@ -24,7 +26,9 @@ def more_info(slug):
     return render_template('articles/more_info.html', menu=menu, articles_db=articles_db)
 
 @articles.route('/add', methods=['GET', 'POST'])
+@login_required
 def add():
+    menu = True
     form = AddArticlesForm()
     if request.method == "POST":
         if form.validate_on_submit():
@@ -41,9 +45,9 @@ def add():
                 form.specification.data = ''
                 link = "/articles/" + new_article.slug
                 print(link)
-                return render_template("articles/add.html", form=form, message=message, link=link)   
+                return render_template("articles/add.html", menu=menu, form=form, message=message, link=link)   
             except :
                 message = "НЕ СОХРАНИЛОСЬ"
-                return render_template("articles/add.html", form=form, message=message)
+                return render_template("articles/add.html", menu=menu, form=form, message=message)
 
-    return render_template("articles/add.html", form=form)
+    return render_template("articles/add.html", menu=menu, form=form)
