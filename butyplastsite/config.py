@@ -11,6 +11,7 @@ if os.path.exists('../config.env'):
         if len(var) == 2:
             os.environ[var[0]] = var[1].replace("\"", "")
 
+dirname = os.path.abspath(os.path.dirname(__file__))
 
 class Configuretion(object):
     # В файл config.env записывать без пробелов и кавычек
@@ -19,8 +20,9 @@ class Configuretion(object):
     SQLALCHEMY_TRACK_MODIFICATIONS = os.environ.get('SQLALCHEMY_TRACK_MODIFICATIONS')
     SECRET_KEY = os.environ.get('SECRET_KEY')
     # del_string
-    UPLOAD_FOLDER = os.environ.get('UPLOAD_FOLDER')
-
+    UPLOAD_FOLDER = dirname + os.environ.get('UPLOAD_FOLDER')
+    # Flask admin image
+    SQLALCHEMY_ECHO = True
     ##### flask_security
 
     SECURITY_PASSWORD_SALT = 'SALT'

@@ -13,25 +13,54 @@
 
 
 {% block main %}
-{% if article_db %}
-{% for row in article_db %}
-    <div class="col-xs-0 col-sm-2 col-md-2 col-lg-2 left_side_shadow">
+{% if pages %}
+<div class="col-xs-0 col-sm-2 col-md-2 col-lg-2 left_side_shadow">
+    <img  src="../static/images/side_shadow.png" height="50" width="100%">
+</div>
+
+<div class="container col-xs-12 col-sm-9 col-md-9 col-lg-9 text-right" >
+    <!-- Single button -->
+    {% if sorts %} 
+    <div class="btn-group">
+        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {% if request.args.get('sorting') %} {{request.args.get('sorting')}}{% else %} {{sorts[0]}} {% endif %}<span class="caret"></span>
+        </button>
+        
+        <ul class="dropdown-menu"> 
+        {% for sort in sorts %}
+            <li><a href="{{url_for('articles.index')}}?sorting={{sort}}">{{sort}}</a></li>
+        {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+</div>
+
+<div class="col-xs-0 col-sm-1 col-md-1 col-lg-1 right_side_shadow">
+    <img  src="../static/images/side_shadow.png" height="50" width="100%">
+</div>
+{% endif %}
+
+{% if pages %}
+{% for row in pages.rows %}
+     <div class="col-xs-0 col-sm-2 col-md-2 col-lg-2 left_side_shadow">
         <img class="buy_main_side_shadow" src="../static/images/side_shadow.png">
     </div>
     <div class="container col-xs-12 col-sm-9 col-md-9 col-lg-9 contentindex" >
         <a href='{{ url_for('articles.more_info', slug = row.slug) }}' >
-            <img class="index_image" src="{{ url_for('static', filename='uploads/not.png') }}" alt="Товары" align="left">
+            <img class="index_image" src="{{'../static/upload/'+row.image}}" alt="Подробнее" align="left">
         </a>
         <h1>{{row.title}}</h1>
+        {{'../static/upload/'+row.image}}
         <p> {{row.body}}</p> 
 
-        <a href='{{ url_for('products.index') }}' >
+        <a href='{{ url_for('contacts') }}' >
             <img class="buttonimage"  src="../static/images/button_buy_now.jpg" alt="Купить" align="right" >
         </a>
 
         <a href='{{ url_for('articles.more_info', slug = row.slug) }}' >
             <img class="buttonimage"  src="../static/images/button_details.jpg" alt="Подробнее" align="right"  >
         </a>
+        
     </div>
 
     <div class="col-xs-0 col-sm-1 col-md-1 col-lg-1 right_side_shadow">
@@ -39,6 +68,52 @@
     </div>
 {% endfor %}
 {% endif %}
+
+
+{% if pages %} 
+<div class="col-xs-0 col-sm-2 col-md-2 col-lg-2 left_side_shadow">
+    <img src="../static/images/side_shadow.png " height="80" width="100%">
+</div>
+
+<div class="container col-xs-12 col-sm-9 col-md-9 col-lg-9 text-center " >
+    <nav >
+        <ul class="pagination pagination-md">
+
+            <li {% if not pages.has_prev %} class="disabled" {% endif %} >
+
+                <a href="{{url_for('articles.index')}}?page={{ pages.page - 1 }}&sorting={{sorting }}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+            </li>
+
+            {% for page in pages.iter_pages() %}
+            <li {% if page == pages.page %} class="active" {% endif %}>
+                
+                {% if page %}
+                <a href="{{url_for('articles.index')}}?page={{ page }}&sorting={{ sorting }}">{{ page }}
+                {% else %}
+                <a href="#">...
+                {% endif %}                    
+                
+                <span class="sr-only">(current)</span></a>                                
+            </li>
+            {% endfor %}
+
+            <li {% if not pages.has_next %} class="disabled" {% endif %} >
+                                    
+                <a href="{% if pages.has_next %}
+                {{url_for('products.index')}}?page={{ pages.page + 1 }}&sorting={{sorting}}
+                {% endif %} " aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+                
+            </li>
+
+        </ul>
+    </nav>
+</div>
+<div class="col-xs-0 col-sm-1 col-md-1 col-lg-1 right_side_shadow">
+    <img src="../static/images/side_shadow.png" height="80" width="100%">
+</div>
+{% endif %}
+
+
 {% endblock %}
 
 

@@ -20,12 +20,17 @@ class Articles(db.Model):
     body = db.Column(db.Text)
     specification = db.Column(db.Text)
     image = db.Column(db.String(150))
-    # Связь с тадлицей Maintable
+    # Связь с таблицей Maintable
     id_main = db.Column(db.Integer, db.ForeignKey('maintable.id'))
 
     def __init__(self, *args, **kwargs):
         super(Articles, self).__init__(*args, **kwargs)
-        self.slug = slugify(self.title) + '_' + slugify_date(str(datetime.now()))
+        self.generate_slug()
+
+    def generate_slug(self):
+        if self.title:
+            self.slug = slugify(self.title) + '_' + slugify_date(str(datetime.now()))
+        
 
     def __repr__(self):
         return '<Article %r, id: %r>' % (self.title, self.id)
@@ -49,22 +54,6 @@ class Products(db.Model):
 
     def __repr__(self):
         return '<Products %r, id: %r>' % (self.title, self.id)
-
-class Tag(db.Model):
-    """
-    Таблица 
-    """
-    __tablename__ = 'tags'
-    id = db.Column(db.Integer, primary_key=True)
-    slug = db.Column(db.String(100))
-    name = db.Column(db.String(100))
-
-    def __init__(self, *args, **kwargs):
-        super(Tag, self).__init__(*args, **kwargs)
-        self.slug = slugify(self.name)
-
-    def __repr__(self):
-        return '<Tag %r, id: %r>' % (self.name, self.id)
 
 class Maintable(db.Model):
     __tablename__ = 'maintable'

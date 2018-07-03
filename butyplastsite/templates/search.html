@@ -34,8 +34,6 @@
             {% for sort in sorts %}
                 <li><a href="/search?sorting={{sort}}&q={{ request.args.get('q','') }}">{{sort}}</a></li>
             {% endfor %}
-                <li role="separator" class="divider"></li>
-                <li><a href="#">Separated link</a></li>
             </ul>
         </div>
         {% endif %}
@@ -54,12 +52,13 @@
     </div>
     <div class="container col-xs-12 col-sm-9 col-md-9 col-lg-9 contentindex" >
         <a href='{% if row.price %} {{ url_for(row.maintable.section, slug = row.slug) }}  {% endif %}' >
-            <img class="index_image" src="{{ url_for('static', filename='uploads/not.png') }}" alt="Подробнее" align="left">
+            <img class="index_image" src="{{ row.image }}" alt="Подробнее" align="left">
         </a>
         <h1>{{row.title}}</h1>
         <p> {{row.body}}</p>  
-        {% if row.price %}                           
-            <p> Цена: {{row.price}} грн.</p>
+        {% if row.price %} 
+            <br/>                          
+            <p> <b>Цена: {{row.price}} грн.</b></p>
         
         <a href='{{ url_for('contacts') }}' >
             <img class="buttonimage"  src="../static/images/button_buy_now.jpg" alt="Купить" align="right" >

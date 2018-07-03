@@ -27,7 +27,7 @@ def contacts():
 @app.route('/search')
 def search():
     menu = True
-    per_page = 3 # Количество результатов на странице 
+    per_page = 10 # Количество результатов на странице 
     page = request.args.get('page')
     if page and page.isdigit():
         page = int(page)

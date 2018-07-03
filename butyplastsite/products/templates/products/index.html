@@ -47,7 +47,7 @@
     </div>
     <div class="container col-xs-12 col-sm-9 col-md-9 col-lg-9 contentindex" >
         <a href='{{ url_for('products.product', slug = row.slug) }}' >
-            <img class="index_image" src="{{ url_for('static', filename='uploads/not.png') }}" alt="Подробнее" align="left">
+            <img class="index_image" src="{{row.image}}" alt="Подробнее" align="left">
         </a>
         <h1>{{row.title}}</h1>
         <p> {{row.body}}</p> 
