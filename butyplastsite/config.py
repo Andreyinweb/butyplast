@@ -22,11 +22,8 @@ class Configuretion(object):
     # del_string
     UPLOAD_FOLDER = dirname + os.environ.get('UPLOAD_FOLDER')
     # Flask admin image
-    SQLALCHEMY_ECHO = True
+    SQLALCHEMY_ECHO = False
     ##### flask_security
 
     SECURITY_PASSWORD_SALT = 'SALT'
     SECURITY_PASSWORD_HASH = 'sha512_crypt'
-
-
-

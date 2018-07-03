@@ -32,7 +32,6 @@ db = SQLAlchemy(app)
 
 ####### ADMIN ######
 file_path = app.config['UPLOAD_FOLDER']
-print(file_path)#del
 
 from models import *
 # image
@@ -57,7 +56,7 @@ class ImageView(sqla.ModelView):
         if not model.image:
             return ''
         return Markup('<img src="%s">' % url_for('static',
-                                                 filename='upload/'+form.thumbgen_filename(model.image)))
+                                                 filename='uploads/'+form.thumbgen_filename(model.image)))
 
     column_formatters = {
         'image': _list_thumbnail

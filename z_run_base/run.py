@@ -10,14 +10,27 @@ from random import randint, choice
 import worddict
 import os
 import shutil
-
+from PIL import Image
 
 def add_images():
+   
     dirname = os.path.abspath(os.path.dirname(__file__))
     # Каталог из которого будем брать файлы 
     directory = dirname + '/images' 
-
     # Получаем список файлов в переменную 
+    images_name = os.listdir(directory)
+    # Уменьшение картинки до size
+    size = (100, 100)
+    for infile in images_name:
+        outfile = os.path.splitext(infile)[0] + "_thumb.jpg"
+        if infile != outfile:
+            try:
+                im = Image.open('images/' + infile)
+                im.thumbnail(size)
+                im.save(os.path.join(app.config['UPLOAD_FOLDER'], outfile), "JPEG")
+            except IOError:
+                print("cannot create thumbnail for", infile)
+
     images_name = os.listdir(directory)
     count = 0
     for name in images_name:
