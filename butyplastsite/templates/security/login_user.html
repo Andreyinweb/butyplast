@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Вход
+{% endblock %}
+
+{% block header %}
+    <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
+     <img class="banner" src="../static/images/banner.jpg" alt="Банер">
+    </div>
+{% endblock %}
+
+{% block main %}
+<div class="container-fluid">
+  <div class="col-xs-0 col-sm-2 col-md-2 col-lg-2 left_side_shadow">
+      <img class="main_side_shadow" src="../static/images/side_shadow_small.png">
+  </div>
+
+  <div class="container col-xs-12 col-sm-9 col-md-9 col-lg-9 contentindex ">
+    {% from "security/_macros.html" import render_field_with_errors, render_field %}
+    {% include "security/_messages.html" %}
+    <h1>{{ _('Login') }}</h1>
+    <form action="{{ url_for_security('login') }}" method="POST" name="login_user_form">
+      {{ login_user_form.hidden_tag() }}
+      {{ render_field_with_errors(login_user_form.email) }}
+      {{ render_field_with_errors(login_user_form.password) }}
+      {{ render_field_with_errors(login_user_form.remember) }}
+      {{ render_field(login_user_form.next) }}
+      {{ render_field(login_user_form.submit) }}
+    </form>
+    {% include "security/_menu.html" %}
+  </div>
+
+  <div class="col-xs-0 col-sm-1 col-md-1 col-lg-1 right_side_shadow">
+    <img class="main_side_shadow" src="../static/images/side_shadow.png">
+  </div>
+</div>
+
+{% endblock %}

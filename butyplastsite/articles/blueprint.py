@@ -17,7 +17,6 @@ def index():
     article_db = Articles.query.all()
     return render_template('articles/index.html', menu=menu, article_db=article_db)
 
-    more_info
 @articles.route('/<slug>')
 def more_info(slug):
     menu = True

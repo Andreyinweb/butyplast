@@ -55,6 +55,18 @@
                 </div>
                 <button type="submit" class="btn btn-default">Поиск</button>
             </form>
+            <ul class="nav navbar-nav navbar-right">
+                
+              {% if current_user.has_role('Admin') %}
+                <li><a href="{{url_for('admin.index')}}">Админ</a></li>
+                <li><a href="{{url_for('add')}}">Добавить</a></li>
+              {% endif %}
+              {% if current_user.active %}
+              <li><a href="{{url_for('index')}}">{{current_user.username}}</a></li>
+              <li><a href="{{url_for('security.logout')}}">Выйти</a></li>
+              {% else %}
+              <li><a href="{{url_for('security.login')}}">Войти</a></li>
+              {% endif %}
             </div>
         </div>
     </nav>

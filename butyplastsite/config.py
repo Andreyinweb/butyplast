@@ -26,3 +26,5 @@ class Configuretion(object):
     SECURITY_PASSWORD_SALT = 'SALT'
     SECURITY_PASSWORD_HASH = 'sha512_crypt'
 
+
+

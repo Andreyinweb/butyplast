@@ -28,4 +28,5 @@
 
 # Running the application                       
 
+* $ cd butyplastsite
 * $ python3 main.py

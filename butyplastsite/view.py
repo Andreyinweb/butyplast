@@ -6,7 +6,7 @@ from programs.pagination import Pagination
 
 @app.route('/')
 def index():
-    menu = False
+    menu = True
     # Uncomment if you want to display a variable. Раскомментировать если нужно вывести на экран переменную.
     # message = Markup('<nav class="navbar navbar-inverse"><div class="container-fluid"><div class="navbar-header"><button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button></div><div class="collapse navbar-collapse" id="myNavbar"><ul class="nav navbar-nav"><li class="active"><a href="https://butyplast.com">Главная</a></li><li><a href="https://butyplast.com/about_us">О нас</a></li><li><a href="https://butyplast.com/g4182743-materialy-dlya-vibroizolyatsii">Товары</a></li><li><a href="https://butyplast.com/contacts">Контакты</a></li></ul></div></div></nav>')
     return render_template("index.html", menu = menu) # , message = message Paste if you want to display a variable. Вставить если нужно вывести на экран переменную.
@@ -83,8 +83,9 @@ def search():
 
     return render_template("search.html", menu=menu, message=message,  sorting=sorting ,  sorts=sorts, pages=pages)
 
-# @app.route('/add', methods=['GET', 'POST'])
-# def add():
+@app.route('/add', methods=['GET', 'POST'])
+def add():
+    return redirect("/articles/add")
 #     page_add = request.args.get('page_add')
 #     if not page_add:
 #         page_add = 'Описание'

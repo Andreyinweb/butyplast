@@ -50,8 +50,9 @@
             <img class="index_image" src="{{ url_for('static', filename='uploads/not.png') }}" alt="Подробнее" align="left">
         </a>
         <h1>{{row.title}}</h1>
-        <p> {{row.body}}</p>                                
-        <p> Цена: {{row.price}} грн.</p>
+        <p> {{row.body}}</p> 
+        <br/>                              
+        <p> <b>Цена: {{row.price}} грн.</b></p>
 
         <a href='{{ url_for('contacts') }}' >
             <img class="buttonimage"  src="../static/images/button_buy_now.jpg" alt="Купить" align="right" >
