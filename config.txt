@@ -1,0 +1,5 @@
+DEBUG=True
+SQLALCHEMY_DATABASE_URI=mysql+mysqlconnector://root:@localhost/butyplast
+SQLALCHEMY_TRACK_MODIFICATIONS=False
+SECRET_KEY=hard to guess string
+UPLOAD_FOLDER=/static/uploads
