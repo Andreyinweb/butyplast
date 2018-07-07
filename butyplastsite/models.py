@@ -45,12 +45,16 @@ class Products(db.Model):
     specification = db.Column(db.Text)
     price = db.Column(db.Float)
     image = db.Column(db.String(150))
-    # Связь с тадлицей Maintable
+    # Связь с таблицей Maintable
     id_main = db.Column(db.Integer, db.ForeignKey('maintable.id'))
 
     def __init__(self, *args, **kwargs):
         super(Products, self).__init__(*args, **kwargs)
-        self.slug = slugify(self.title) + '_' + slugify_date(str(datetime.now()))
+        self.generate_slug()
+
+    def generate_slug(self):
+        if self.title:
+            self.slug = slugify(self.title) + '_' + slugify_date(str(datetime.now()))
 
     def __repr__(self):
         return '<Products %r, id: %r>' % (self.title, self.id)
@@ -75,6 +79,7 @@ class Maintable(db.Model):
 
     def __repr__(self):
         return '<Maintable section:%r, link: %r, title_page: %r, name_link: %r>' % (self.section, self.link, self.title_page,  self.name_link)
+
 
 roles_users = db.Table('roles_users',
             db.Column('user_id',db.Integer, db.ForeignKey('user.id')),

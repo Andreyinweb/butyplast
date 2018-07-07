@@ -16,10 +16,10 @@ def index():
     else:
         page = 1
 
-    sort = {'по дате: старые': Products.created.desc(),
+    sort = {'по дате: новые': Products.created.desc(),
             'от дешевых к дорогим': Products.price.asc(),
             'от дорогих к дешевым': Products.price.desc(),
-            'по дате: новые': Products.created.asc()}
+            'по дате: старые': Products.created.asc()}
     sorts =[s for s in sort]
 
     sorting = request.args.get('sorting')

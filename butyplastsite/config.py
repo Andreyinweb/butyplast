@@ -15,15 +15,14 @@ dirname = os.path.abspath(os.path.dirname(__file__))
 
 class Configuretion(object):
     # В файл config.env записывать без пробелов и кавычек
+    # In the file config.env write without spaces and quotation marks
+
     DEBUG = os.environ.get('DEBUG')
     SQLALCHEMY_DATABASE_URI = os.environ.get('SQLALCHEMY_DATABASE_URI')
     SQLALCHEMY_TRACK_MODIFICATIONS = os.environ.get('SQLALCHEMY_TRACK_MODIFICATIONS')
     SECRET_KEY = os.environ.get('SECRET_KEY')
-    # del_string
     UPLOAD_FOLDER = dirname + os.environ.get('UPLOAD_FOLDER')
-    # Flask admin image
-    SQLALCHEMY_ECHO = False
-    ##### flask_security
 
-    SECURITY_PASSWORD_SALT = 'SALT'
-    SECURITY_PASSWORD_HASH = 'sha512_crypt'
+    ##### flask_security
+    SECURITY_PASSWORD_SALT = os.environ.get('SECURITY_PASSWORD_SALT')
+    SECURITY_PASSWORD_HASH = os.environ.get('SECURITY_PASSWORD_HASH')

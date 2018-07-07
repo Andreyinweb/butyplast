@@ -4,31 +4,17 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_admin import Admin, AdminIndexView, form
 from flask_admin.contrib.sqla import ModelView
 from flask_security import SQLAlchemyUserDatastore, Security, current_user
-
 import os.path as op
 from sqlalchemy.event import listens_for
 from jinja2 import Markup
 from flask_admin.form import rules
 from flask_admin.contrib import sqla
 
-
-# from flask_migrate import Migrate, MigrateCommand
-# from flask_script import Manager
-
-
-
 app = Flask(__name__)
 
 app.config.from_object(Configuretion)
 
-
-
 db = SQLAlchemy(app)
-
-# migrate = Migrate(app, db)
-# manager = Manager(app)
-# manager.add_command('db', MigrateCommand)
-
 
 ####### ADMIN ######
 file_path = app.config['UPLOAD_FOLDER']
@@ -93,14 +79,17 @@ class HomeAdminView(AdminMixin, AdminIndexView):
 
 class ArticlesAdminView(AdminMixin, BaseModelView,ImageView):
     form_columns = ['title', 'body', 'specification', 'image']
+
+class ProductsAdminView(AdminMixin, BaseModelView,ImageView):
+    form_columns = ['title', 'body', 'specification', 'price', 'image', 'id_main']
+
     
 admin = Admin(app, 'Главная',  url='/', index_view=HomeAdminView(name='Администрирование'))
 
 admin.add_view(ArticlesAdminView(Articles, db.session, name='Описание', endpoint='Article'))
-admin.add_view(AdminView(Products, db.session, name='Товары', endpoint='Product'))
+admin.add_view(ProductsAdminView(Products, db.session, name='Товары', endpoint='Product'))
 admin.add_view(AdminView(User, db.session))
 admin.add_view(AdminView(Role, db.session))
-admin.add_view(AdminView(Maintable, db.session))
 
 #### flask_security
 user_datastore = SQLAlchemyUserDatastore(db, User, Role)

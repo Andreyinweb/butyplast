@@ -1,6 +1,5 @@
-# -*- coding: utf-8 -*-
 from random import randint, sample, choice
-from worddict import nickname, posts
+from worddict import nickname
 
 class Generator():
     """Generator of random users

@@ -8,7 +8,6 @@
     <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
         <img class="banner" src="../static/images/banner.jpg" alt="Банер">
     </div>
-
 {% endblock %}
 
 
@@ -52,7 +51,7 @@
     </div>
     <div class="container col-xs-12 col-sm-9 col-md-9 col-lg-9 contentindex" >
         <a href='{% if row.price %} {{ url_for(row.maintable.section, slug = row.slug) }}  {% endif %}' >
-            <img class="index_image" src="{{ row.image }}" alt="Подробнее" align="left">
+            <img class="index_image" src="{{ url_for('static', filename='uploads/'+row.image) }}" alt="Подробнее" align="left">
         </a>
         <h1>{{row.title}}</h1>
         <p> {{row.body}}</p>  
@@ -94,17 +93,13 @@
 
             {% for page in pages.iter_pages() %}
             <li {% if page == pages.page %} class="active" {% endif %}>
-                
-                
 
-                    {% if page %}
-                    <a href="{{url_for('search')}}?page={{ page }}&sorting={{ sorting }}&q={{ request.args.get('q','') }}">{{ page }}
-                    {% else %}
-                    <a href="#">...
-                    {% endif %}
-                    
-                    
-                    <span class="sr-only">(current)</span></a>
+                {% if page %}
+                <a href="{{url_for('search')}}?page={{ page }}&sorting={{ sorting }}&q={{ request.args.get('q','') }}">{{ page }}
+                {% else %}
+                <a href="#">...
+                {% endif %}
+                <span class="sr-only">(current)</span></a>
                                 
             </li>
             {% endfor %}
