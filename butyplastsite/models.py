@@ -3,13 +3,24 @@ from datetime import datetime
 import re
 from flask_security import UserMixin, RoleMixin
 
+
+# The function of creating addresses from the name
+# Функция создания адресов из названия
 def slugify(title):
     pattern = r'[^\w+]'
     return re.sub(pattern, '_', title)
 
+
+# Convert date to number for product address
+# Преобразование даты в число для адреса товара
 def slugify_date(s):
     pattern = r'[^\w+]'
     return re.sub(pattern, '', s)
+
+
+# Database table
+# Таблица базы данных
+
 
 class Articles(db.Model):
     __tablename__ = 'articles'
@@ -30,10 +41,13 @@ class Articles(db.Model):
     def generate_slug(self):
         if self.title:
             self.slug = slugify(self.title) + '_' + slugify_date(str(datetime.now()))
-        
 
     def __repr__(self):
         return '<Article %r, id: %r>' % (self.title, self.id)
+
+# Database table
+# Таблица базы данных
+
 
 class Products(db.Model):
     __tablename__ = 'products'
@@ -59,6 +73,10 @@ class Products(db.Model):
     def __repr__(self):
         return '<Products %r, id: %r>' % (self.title, self.id)
 
+# Database table
+# Таблица базы данных
+
+
 class Maintable(db.Model):
     __tablename__ = 'maintable'
     id = db.Column(db.Integer, primary_key=True)
@@ -82,9 +100,11 @@ class Maintable(db.Model):
 
 
 roles_users = db.Table('roles_users',
-            db.Column('user_id',db.Integer, db.ForeignKey('user.id')),
-            db.Column('role_id',db.Integer, db.ForeignKey('role.id')))
+                       db.Column('user_id', db.Integer, db.ForeignKey('user.id')),
+                       db.Column('role_id', db.Integer, db.ForeignKey('role.id')))
 
+# Database table
+# Таблица базы данных
 
 
 class User (db.Model, UserMixin):
@@ -95,22 +115,23 @@ class User (db.Model, UserMixin):
     password = db.Column(db.String(255))
     active = db.Column(db.Boolean())
 
-    roles = db.relationship('Role', secondary=roles_users ,backref=db.backref('userus', lazy='dynamic'))
-    
+    roles = db.relationship('Role', secondary=roles_users, backref=db.backref('userus', lazy='dynamic'))
 
     def __repr__(self):
         return '<User: %r,%r>' % (self.username, self.email)
 
-class Role(db.Model,RoleMixin):
+# Database table
+# Таблица базы данных
+
+
+class Role(db.Model, RoleMixin):
     __tablename__ = 'role'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), unique=True)
     description = db.Column(db.String(255))
     users = db.relationship('User', backref='role', lazy='dynamic')
 
-    users = db.relationship('User', secondary=roles_users,backref=db.backref('roleus', lazy='dynamic'))
-    
+    users = db.relationship('User', secondary=roles_users, backref=db.backref('roleus', lazy='dynamic'))
+
     def __repr__(self):
         return '<Role %r>' % self.name
-
-
