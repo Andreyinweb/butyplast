@@ -1,5 +1,6 @@
 # Butyplast site
 
+<https://www.youtube.com/watch?v=hQTUur4KiSE>
 
 ## What's included?
 
@@ -22,7 +23,7 @@
 * $ source venv/bin/activate
 * $ cd butyplast
 * $ pip3 install -r requirements.txt
-* 
+*
 
 * Сreate file config.env
 
@@ -32,7 +33,7 @@
 * \>>  create database [name database] character set utf8 collate utf8_unicode_ci;
 * \>>  exit;
 
-# Running the application                       
+# Running the application
 
 * $ cd butyplastsite
 * $ python3 main.py
@@ -41,5 +42,5 @@
 
 * Open the catalog z_run_base
 * File data: worddict.py
-* Folder for image: images 
+* Folder for image: images
 * $ python3 run.py
