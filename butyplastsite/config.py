@@ -13,6 +13,7 @@ if os.path.exists('../config.env'):
 
 dirname = os.path.abspath(os.path.dirname(__file__))
 
+
 class Configuretion(object):
     # В файл config.env записывать без пробелов и кавычек
     # In the file config.env write without spaces and quotation marks
@@ -23,6 +24,6 @@ class Configuretion(object):
     SECRET_KEY = os.environ.get('SECRET_KEY')
     UPLOAD_FOLDER = dirname + os.environ.get('UPLOAD_FOLDER')
 
-    ##### flask_security
+    # flask_security
     SECURITY_PASSWORD_SALT = os.environ.get('SECURITY_PASSWORD_SALT')
     SECURITY_PASSWORD_HASH = os.environ.get('SECURITY_PASSWORD_HASH')
